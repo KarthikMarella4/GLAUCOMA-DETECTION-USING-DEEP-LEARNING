@@ -1,0 +1,204 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eye Disease Prediction</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+    <div id="content">
+        <div id="home" class="page home-page">
+            <div class="home-download">
+                <a href="{% url 'download_pdf' %}" download>
+                    <button>Document</button>
+                  </a>
+
+                  <a href="{% url 'download_python_file' %}" download>
+                    <button>Code</button>
+                  </a>
+            </div>
+            <div class="content">
+                <h1 id="mainText"></h1>
+                <p class="home-para">Get accurate predictions for eye diseases.</p>
+                <button id="predictionBtn">Prediction</button>
+            </div>
+            <div class="home-cards">
+                <div class="home-card">
+                    <h3>Why choose this </h3>
+                    <p>A glaucoma is a group of eye diseases that result in damage to the optic nerve (or retina) and cause vision loss. Being the second largest cause of blindness worldwide, it can lead the person towards complete blindness if an early diagnosis does not take place. As a result, clinicians in rural areas can also be able to efficiently use this application for their diagnosis.</p>
+                </div>
+
+                <div class="home-card">
+                    <h3>Technologies Used</h3>
+                    <p>
+                        DL for glaucoma leverages technologies such as convolutional neural networks (CNNs) for image analysis, recurrent neural networks (RNNs) for longitudinal data analysis, and generative adversarial networks (GANs) for data augmentation and synthesis. These technologies enable automated diagnosis, personalized treatment recommendations
+                    </p>
+                </div>
+
+                <div class="home-card">
+                    <h3>Scientific Exploration</h3>
+                    <p>
+                        Glaucoma using deep learning (DL) involves leveraging neural network architectures to analyze large datasets of medical images (such as OCT scans and fundus photographs) for improved diagnosis and prognosis prediction. DL models can also aid in identifying novel biomarkers, understanding disease progression patterns, and optimizing personalized treatment strategies.   
+                    </p>
+                </div>
+
+                <div class="home-card">
+                    <h3>Our Services</h3>
+                    <p>
+                        DL models in glaucoma offer automated diagnosis through image analysis, personalized treatment plans based on patient data, and remote monitoring for disease progression, revolutionizing care delivery and improving patient outcomes.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="about" class="page about-page">
+            <div class="about-nav">
+                <button id="abstractBtn" class="active">Abstract</button>
+                <button id="teamBtn">Team Members</button>
+            </div>
+            <div id="abstract" class="about-section">
+                <h2>Abstract</h2>
+                <p>Glaucoma is the term used to describe either the accumulated loss of retinal cells inside the
+                    optic nerve or the gradual visual loss brought on by optic neuropathy. Glaucoma is a disease
+                    that relates to the vision of the human eye. This disease is considered an irreversible disease
+                    that results in vision deterioration. They don't have any early warning indications of this
+                    glaucoma. We might not notice a change in your vision because the effect is so subtle. Many
+                    deep learning (DL) models have been developed for the proper detection of glaucoma so far.
+                    So, we present an architecture for proper glaucoma detection based on deep learning by
+                    making use of the convolutional neural network (CNN). The differentiation between the
+                    patterns formed for glaucoma and non-glaucoma can find out with the use of CNN. The CNN
+                    provides a hierarchical structure of the images for differentiation. Utilizing the current
+                    method, the sickness is detected. Whether a patient has glaucoma or not is determined by the
+                    optic cup to the disc ratio. The diagnosis is enhanced by the integration of an image data
+                    generator method of data augmentation. The outcomes demonstrate that the proposed model,
+                    which outperformed many other existing algorithms, attained 98% accuracy. </p>
+            </div>
+            <div id="team" class="about-section" style="display: none;">
+                <h2>Team Members</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S.no</th>
+                            <th>Name</th>
+                            <th>Roll Number</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>J Saranya</td>
+                            <td>20MH1A4218</td>
+                            <td>Deep Learning </td>
+                            
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>B Ch Sidhu</td>
+                            <td>20MH1A4203</td>
+                            <td>Back-end development</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>M N S S Karthik</td>
+                            <td>20MH1A4238</td>
+                            <td>Front-end development </td>
+                            
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>K Jhahnavi</td>
+                            <td>21MH5A4203</td>
+                            <td>Deep Learning </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+
+
+        <div id="prediction" class="prediction-page">
+
+            <h1>Make Prediction</h1>
+            <div>
+                <form id="uploadForm"  class="uploadForm" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" id="imageInput" class="file-input" accept="image/*">
+                    <label for="imageInput" class="custom-file-input">
+                        <i class="fa-solid fa-cloud-arrow-up upload-icon"></i> Upload File
+                    </label>
+                    <button type="button"  id="pred-btn" class="pred-btn" onclick="predictImage()">Predict</button>
+               
+                    
+                </form>
+                <div id="imageContainer" class="imageContainer"></div>
+    
+            </div>
+
+            <div id="predictionResult" class="predictionResult"></div>
+            <div class="pasitive-card" id="positive-card">
+                <b>Follow Medical Advice:</b> It's crucial to follow the treatment plan recommended by an ophthalmologist or eye specialist. This may include medications such as eye drops, oral medications, or other treatments depending on the type and severity of glaucoma. <br><br>
+
+                <b>Regular Eye Exams:</b> Regular eye check-ups are essential to monitor the progression of glaucoma and ensure that the treatment is effective. These exams may include tests such as visual field tests, intraocular pressure measurements, and optic nerve evaluations.<br><br>
+
+                <b>Maintain Healthy Lifestyle:</b> A healthy lifestyle can help manage glaucoma. This includes regular exercise (with approval from a doctor), a balanced diet rich in fruits and vegetables, maintaining a healthy weight, and avoiding smoking.<br><br>
+
+                <b>Use Eye Drops Correctly:</b> If eye drops are prescribed, it's crucial to use them as directed by the doctor. This includes following the recommended dosage and schedule and properly administering the drops to the eyes.
+
+
+            </div>
+            <div class="negitive-card" id="negative-card">
+                <b>Eat a Balanced Diet:</b>Eat a Balanced Diet: Consuming a diet rich in fruits, vegetables, whole grains, lean proteins, and healthy fats provides essential nutrients for overall health, including eye health. Foods high in antioxidants like vitamins C and E, zinc, and omega-3 fatty acids are particularly beneficial for eye health.<br><br>
+
+                <b>Stay Hydrated:</b> Drink an adequate amount of water each day to maintain hydration, which supports overall health, including eye function.<br><br>
+
+               <b>Exercise Regularly:</b> Engage in regular physical activity as recommended by healthcare professionals. Exercise promotes circulation, which can benefit eye health by ensuring adequate blood flow to the eyes.<br><br>
+
+                <b>Maintain a Healthy Weight:</b> Being overweight or obese can increase the risk of certain health conditions, including those that can affect eye health. Maintain a healthy weight through a combination of balanced diet and regular exercise.<br><br>
+
+                <b>Avoid Smoking:</b> Smoking is linked to various health problems, including eye diseases like macular degeneration and cataracts. If you smoke, consider quitting or seeking support to quit smoking.<br><br>
+
+                <b>Protect Your Eyes from UV Rays:</b> Wear sunglasses that offer UV protection when outdoors, especially during peak sun hours. Prolonged exposure to UV rays can increase the risk of eye conditions like cataracts and age-related macular degeneration.<br><br>
+
+                <b>Practice Eye Safety:</b> When engaging in activities that could pose a risk to your eyes, such as using power tools, playing sports, or working with chemicals, wear appropriate eye protection to prevent injuries.<br><br>
+
+                <b>Take Breaks from Screens:</b> If you spend extended periods looking at digital screens, follow the 20-20-20 rule: every 20 minutes, look at something 20 feet away for at least 20 seconds to reduce eye strain.<br><br>
+
+                <b>Get Sufficient Sleep:</b> Adequate sleep is important for overall health and well-being, including eye health. Aim for 7-9 hours of quality sleep each night.<br><br>
+
+                <b>Manage Stress:</b> Chronic stress can impact overall health, including eye health. Practice stress-reducing techniques such as meditation, deep breathing exercises, or hobbies that promote relaxation.<br><br>
+
+            </div>
+            <!-- <div class="prediction-container">
+                <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                <label for="imageInput" class="upload-btn">
+                    <div class="circle-btn">Upload Image</div>
+                </label>
+                <p class="upload-text">Click the button to upload an image for prediction</p>
+            </div>
+            <div id="uploded-img">
+
+            </div> -->
+        </div>
+    
+    </div>
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="#home"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="#about"><i class="fa-solid fa-user"></i> About</a></li>
+            <li><a href="#prediction"><i class="fa-solid fa-diagram-predecessor"></i> Prediction</a></li>
+        </ul>
+    </nav>
+
+    <script src="{% static 'index.js' %}"></script>
+</body>
+</html>
