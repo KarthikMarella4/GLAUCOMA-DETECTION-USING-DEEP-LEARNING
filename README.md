@@ -1,7 +1,7 @@
 ##### GLAUCOMA-DETECTION-USING-DEEP-LEARNING
 
+![DLP](https://github.com/user-attachments/assets/f21b8363-cb16-4897-baf9-22807f9ca7ca)
 
-![Logo](images/your-image.png)
 
 
 
